@@ -137,3 +137,7 @@ project "project_application"
         defines { "MODE_RELEASE" }
         optimize "On"
         
+    filter "system:windows"
+        files { "assets/icon.ico" }
+        buildoptions { "/FR" }
+        files { "assets/resources.rc" }
