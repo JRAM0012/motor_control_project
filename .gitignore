@@ -1,0 +1,11 @@
+.vs
+*.vcxproj
+*.sln
+*.exe
+*.pdb
+obj
+*.ini
+*.vcxproj.filters
+*.vcxproj.user
+*.lib
+*.idb
