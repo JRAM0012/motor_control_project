@@ -15,7 +15,7 @@ int main(int, char**)
     Window window(WINDOW_WIDTH, WINDOW_HEIGHT);
     UserInterface interface(window.glwindow);
 
-    Image image("assets/icon.jpg");
+    Image image("assets/icon_small.png");
 
     // Main loop
     while (!window.should_close_window())
@@ -55,6 +55,9 @@ int main(int, char**)
             if (ImGui::BeginTabItem("Select Motors")) {
                 // Content of Tab 1
                 ImGui::Text("Tab 1 content select motors");
+
+                ImGui::Image(image.get_image_id(), image.get_image_size());
+                
                 ImGui::EndTabItem();
             }
 
