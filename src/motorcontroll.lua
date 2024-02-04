@@ -4,8 +4,8 @@ project "app"
     language "C++"
     kind "ConsoleApp"
     files { "app/**.cpp", }
-    links { "lib_freeglut", "lib_glfw", "lib_imgui", "opengl32", "gdi32" }
-    includedirs { "include", "../vendors/imgui/", "../vendors/imgui/backends", "../vendors/glfw/include", "../vendors/stb" }
+    links { "lib_glad", "lib_freeglut", "lib_glfw", "lib_imgui", "opengl32", "gdi32" }
+    includedirs { "include", "../vendors/imgui/", "../vendors/imgui/backends", "../vendors/glfw/include", "../vendors/stb", "../vendors/glad" }
 
     filter "configurations:Debug"
         debugdir "../bin"

@@ -55,3 +55,12 @@ project "lib_freeglut"
     filter "configurations:Release"
         defines { "MODE_RELEASE" }
         optimize "On"
+    
+project "lib_glad"
+    targetdir "../lib"
+    objdir "../obj"
+    kind "StaticLib"
+    includedirs "glad/"
+    files {
+        "glad/glad.c"
+    }

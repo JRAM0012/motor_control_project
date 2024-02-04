@@ -1,6 +1,7 @@
 #ifndef __WINDOW_HPP__
 #define __WINDOW_HPP__
 
+#include "glad.h"
 #include <GLFW/glfw3.h>
 #include "user_interface.hpp"
 
