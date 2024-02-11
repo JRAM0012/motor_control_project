@@ -6,11 +6,10 @@
 #include "imgui_impl_opengl2.h"
 #include <GLFW/glfw3.h>
 
-
-
-class UserInterface {
+class UserInterface
+{
 public:
-    UserInterface(GLFWwindow* window);
+    UserInterface(GLFWwindow *window);
 
     void PreLoop();
     void PostLoop();

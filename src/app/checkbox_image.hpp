@@ -3,15 +3,14 @@
 
 #include "image.hpp"
 
-class CheckboxImage {
+class CheckboxImage
+{
 public:
-    Image* image;
+    Image *image;
     bool checked;
     CheckboxImage();
-    void render(int row, int col);
+    void render(int row, int col, int numCols);
     ~CheckboxImage();
 };
-
-
 
 #endif //__CHECKBOX_IMAGE_HPP__

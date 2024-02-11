@@ -5,7 +5,8 @@
 #include <GLFW/glfw3.h>
 #include "user_interface.hpp"
 
-class Window {
+class Window
+{
 public:
     Window(unsigned int height, unsigned int width);
     ImVec4 clear_color;
@@ -17,11 +18,8 @@ public:
 
     ~Window();
 
-    GLFWwindow* glwindow = nullptr;
+    GLFWwindow *glwindow = nullptr;
     ImGuiWindowFlags noMovewindowFlags;
-
 };
-
-
 
 #endif //__WINDOW_HPP__

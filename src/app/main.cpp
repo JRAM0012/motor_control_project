@@ -1,6 +1,6 @@
 #include "window.hpp"
 #include "user_interface.hpp"
-#include "checkbox_image.hpp"
+#include "checkbox_container.hpp"
 
 #include <stdio.h>
 
@@ -13,8 +13,7 @@ int main(int, char **)
     Window window(WINDOW_WIDTH, WINDOW_HEIGHT);
     UserInterface interface(window.glwindow);
 
-    const int numRows = 4, numCols = 6;
-    CheckboxImage cbimage[numRows * numCols];
+    CheckBoxContainer container(4, 6);
 
     // Main loop
     while (!window.should_close_window())
@@ -52,15 +51,7 @@ int main(int, char **)
                 // Content of Tab 1
                 ImGui::Text("Tab 1 content select motors");
 
-                for (size_t row = 0; row < numRows; row++)
-                {
-                    ImGui::Columns(numCols, nullptr, false);
-                    for (size_t col = 0; col < numCols; col++)
-                    {
-                        cbimage[row * 4 + col].render(row, col);
-                        ImGui::NextColumn();
-                    }
-                }
+                container.Render();
 
                 ImGui::EndTabItem();
             }

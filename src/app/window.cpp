@@ -11,13 +11,11 @@ static void glfw_error_callback(int error, const char *description)
 Window::Window(unsigned int width, unsigned int height)
 {
 
-
     noMovewindowFlags = ImGuiWindowFlags_NoTitleBar;
     noMovewindowFlags |= ImGuiWindowFlags_NoMove;
     noMovewindowFlags |= ImGuiWindowFlags_NoResize;
     noMovewindowFlags |= ImGuiWindowFlags_NoCollapse;
     noMovewindowFlags |= ImGuiWindowFlags_MenuBar;
-
 
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
@@ -35,7 +33,7 @@ Window::Window(unsigned int width, unsigned int height)
     glfwSwapInterval(1); // Enable vsync
     clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-    if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         printf("failed to initialize glad\n");
         exit(-1);

@@ -17,7 +17,6 @@ UserInterface::UserInterface(GLFWwindow *window)
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL2_Init();
-
 }
 
 void UserInterface::PreLoop()

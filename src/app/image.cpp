@@ -6,10 +6,11 @@
 #include <string>
 #include <unordered_map>
 
-typedef struct ImageData {
+typedef struct ImageData
+{
     unsigned int TiD;
     int image_width, image_height;
-}ImageData;
+} ImageData;
 
 std::unordered_map<std::string, ImageData> textureMap;
 
@@ -19,13 +20,13 @@ Image::Image(const char *image_path)
     if (it != textureMap.end())
     {
         image_texture_id = it->second.TiD;
-        image_width      = it->second.image_width;
-        image_height     = it->second.image_height;
+        image_width = it->second.image_width;
+        image_height = it->second.image_height;
     }
     else
     {
         int channel;
-        unsigned char* image_data = stbi_load(image_path, &image_width, &image_height, &channel, 0);
+        unsigned char *image_data = stbi_load(image_path, &image_width, &image_height, &channel, 0);
 
         if (!image_data)
         {
@@ -61,7 +62,7 @@ Image::Image(const char *image_path)
         }
 
         stbi_image_free(image_data);
-        textureMap[image_path] = { image_texture_id, image_width, image_height };
+        textureMap[image_path] = {image_texture_id, image_width, image_height};
     }
 }
 

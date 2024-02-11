@@ -6,11 +6,11 @@ CheckboxImage::CheckboxImage()
     image = new Image("assets/icon_small.png");
     checked = false;
 }
-void CheckboxImage::render(int row, int col)
+void CheckboxImage::render(int row, int col, int numCols)
 {
     ImGui::Image(image->get_image_id(), image->get_image_size());
     char label_id_buffer[24];
-    snprintf(label_id_buffer, 24, "box%d", row*4+col);
+    snprintf(label_id_buffer, 24, "box%d", row * numCols + col);
     ImGui::Checkbox(label_id_buffer, &checked);
 }
 
