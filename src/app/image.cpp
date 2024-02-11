@@ -3,45 +3,66 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+#include <string>
+#include <unordered_map>
+
+typedef struct ImageData {
+    unsigned int TiD;
+    int image_width, image_height;
+}ImageData;
+
+std::unordered_map<std::string, ImageData> textureMap;
+
 Image::Image(const char *image_path)
 {
-    int channel;
-    unsigned char* image_data = stbi_load(image_path, &image_width, &image_height, &channel, 0);
-
-    if (!image_data)
+    auto it = textureMap.find(image_path);
+    if (it != textureMap.end())
     {
-        printf("Error: Could not open %s\n", image_path);
-        exit(-1);
+        image_texture_id = it->second.TiD;
+        image_width      = it->second.image_width;
+        image_height     = it->second.image_height;
     }
     else
     {
-        printf("Success: loaded image (%dx%d) with %d channels", image_width, image_height, channel);
-    }
-    glGenTextures(1, &image_texture_id);
-    glBindTexture(GL_TEXTURE_2D, image_texture_id);
+        int channel;
+        unsigned char* image_data = stbi_load(image_path, &image_width, &image_height, &channel, 0);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    if (image_data)
-    {
-        if (channel == 4)
+        if (!image_data)
         {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
-        }
-        else if (channel == 3)
-        {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image_width, image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, image_data);
+            printf("Error: Could not open %s\n", image_path);
+            exit(-1);
         }
         else
         {
-            printf("error: texture has unsupported channel size: %d", channel);
+            printf("Success: loaded image (%dx%d) with %d channels", image_width, image_height, channel);
         }
-    }
+        glGenTextures(1, &image_texture_id);
+        glBindTexture(GL_TEXTURE_2D, image_texture_id);
 
-    stbi_image_free(image_data);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        if (image_data)
+        {
+            if (channel == 4)
+            {
+                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+            }
+            else if (channel == 3)
+            {
+                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image_width, image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, image_data);
+            }
+            else
+            {
+                printf("error: texture has unsupported channel size: %d", channel);
+            }
+        }
+
+        stbi_image_free(image_data);
+        textureMap[image_path] = { image_texture_id, image_width, image_height };
+    }
 }
 
 ImTextureID Image::get_image_id()

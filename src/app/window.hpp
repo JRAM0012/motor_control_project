@@ -18,6 +18,8 @@ public:
     ~Window();
 
     GLFWwindow* glwindow = nullptr;
+    ImGuiWindowFlags noMovewindowFlags;
+
 };
 
 

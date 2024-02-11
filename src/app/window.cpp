@@ -10,6 +10,15 @@ static void glfw_error_callback(int error, const char *description)
 
 Window::Window(unsigned int width, unsigned int height)
 {
+
+
+    noMovewindowFlags = ImGuiWindowFlags_NoTitleBar;
+    noMovewindowFlags |= ImGuiWindowFlags_NoMove;
+    noMovewindowFlags |= ImGuiWindowFlags_NoResize;
+    noMovewindowFlags |= ImGuiWindowFlags_NoCollapse;
+    noMovewindowFlags |= ImGuiWindowFlags_MenuBar;
+
+
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
         exit(-1);
