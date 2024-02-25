@@ -3,11 +3,22 @@
 
 #include "image.hpp"
 
+typedef enum MOTOR_STATE {
+    STATE_CLOSED = 0,
+    STATE_OPEN,
+    STATE_FORWARD,
+    STATE_REVERSE,
+}MOTOR_STATE;
+
 class CheckboxImage
 {
 public:
-    Image *image;
+    Image *closeImage;
+    Image *openImage;
+    Image *forwardImage;
+    Image* reverseImage;
     bool checked;
+    MOTOR_STATE state;
     CheckboxImage();
     void render(int row, int col, int numCols);
     ~CheckboxImage();
