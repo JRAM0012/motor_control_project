@@ -2,6 +2,8 @@
 #include "user_interface.hpp"
 #include <stdio.h>
 #include <cstdlib>
+#include <chrono>
+#include <thread>
 
 static void glfw_error_callback(int error, const char *description)
 {
@@ -22,6 +24,8 @@ Window::Window(unsigned int width, unsigned int height)
         exit(-1);
 
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, 1);
+
     // Create window with graphics context
     glwindow = glfwCreateWindow(width, height, "SRI SRINIVASHA ENGINEERS CHENNAI-53 +919841334298", nullptr, nullptr);
     if (glwindow == nullptr)
@@ -48,6 +52,7 @@ int Window::should_close_window()
 
 void Window::PreLoop()
 {
+    startTime = glfwGetTime();
     glfwPollEvents();
 }
 
@@ -64,6 +69,21 @@ void Window::PostLoop()
 
     glfwMakeContextCurrent(glwindow);
     glfwSwapBuffers(glwindow);
+
+    double currentTime = glfwGetTime();
+    double frameTime = currentTime - startTime;
+    startTime = currentTime;
+
+    if (frameTime > (1.0f/60.0f))
+    {
+        frameTime = (1.0f/60.0f);
+    }
+
+    double remainingTime = (1.0f/60.0f) - frameTime;
+    if (remainingTime > 0)
+    {
+        std::this_thread::sleep_for(std::chrono::duration<double>(remainingTime));
+    }
 }
 
 Window::~Window()

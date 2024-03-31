@@ -20,6 +20,10 @@ public:
 
     GLFWwindow *glwindow = nullptr;
     ImGuiWindowFlags noMovewindowFlags;
+
+private:
+    double startTime;
 };
+
 
 #endif //__WINDOW_HPP__

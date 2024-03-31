@@ -17,41 +17,61 @@ CheckBoxContainer::CheckBoxContainer(int row, int col) : numRows(row), numCols(c
     TimeBlockRun2 = 0;
 }
 
+#define TextWithPos(text, pos)\
+    ImGui::SetCursorPos(pos);\
+    ImGui::Text(text)
+
+#define InputIntWithPos(text, val, pos)\
+    ImGui::SetCursorPos(pos);\
+    ImGui::InputInt(text, val);
+
+#define ButtonWithPos(text, pos, curpos)\
+    ImGui::SetCursorPos(curpos);\
+    ImGui::Button(text, pos)
+
+void CheckBoxContainer::RenderSelectedBlocks() {
+    ImGui::SetCursorPos(ImVec2(90, 90));
+    ImGui::BeginChild(3, ImVec2(960, 422), true);
+
+    for (int x = 0; x < (numRows * numCols); x++) {
+        if (boxes[x].get()->checked)
+            boxes[x].get()->render(numRows, numCols, numCols);
+    }
+    ImGui::EndChild();
+}
+
 void CheckBoxContainer::RenderTargetBlock()
 {
     ImGui::SetCursorPos(ImVec2(10, 80));
     ImGui::BeginChild(2, ImVec2(500, 200), true);
 
-    ImGui::SetCursorPos(ImVec2(70, 15));
-    ImGui::Text("Target Open");
+    ImGui::SetCursorPos(ImVec2(70, 15));   ImGui::Text("Target Open");
+    ImGui::SetCursorPos(ImVec2(280, 15));  ImGui::Text("Target Close");
+    ImGui::SetCursorPos(ImVec2(30, 60));   ImGui::Text("SET1:");
+    ImGui::SetCursorPos(ImVec2(30, 100));  ImGui::Text("RUN1:");
+    ImGui::SetCursorPos(ImVec2(220, 60));  ImGui::Text("SET2:");
+    ImGui::SetCursorPos(ImVec2(220, 100)); ImGui::Text("RUN2:");
 
-    ImGui::SetCursorPos(ImVec2(280, 15));
-    ImGui::Text("Target Close");
-
-    ImGui::SetCursorPos(ImVec2(30, 60));
-    ImGui::Text("SET1:");
-
-    ImGui::SetCursorPos(ImVec2(280, 60));
-    ImGui::Text("SET2:");
-
-    ImGui::SetCursorPos(ImVec2(70, 60));
     ImGui::PushItemWidth(80);
-    ImGui::InputInt("SET1", &TargetBlockSet1);
 
-    ImGui::SetCursorPos(ImVec2(320, 60));
-    ImGui::InputInt("RUN1", &TargetBlockRun1);
+    ImGui::SetCursorPos(ImVec2(70, 60));   ImGui::InputInt("SET1", &TargetBlockSet1);;
+    ImGui::SetCursorPos(ImVec2(70, 100));  ImGui::InputInt("RUN1", &TargetBlockRun1);;
+    ImGui::SetCursorPos(ImVec2(250, 60));  ImGui::InputInt("SET2", &TargetBlockSet2);;
+    ImGui::SetCursorPos(ImVec2(250, 100)); ImGui::InputInt("RUN2", &TargetBlockRun2);;
 
-    ImGui::SetCursorPos(ImVec2(30, 130));
-    ImGui::Text("RUN1:");
+    ImGui::SetCursorPos(ImVec2(150, 150));
+    if(ImGui::Button("START", ImVec2(70, 40))) {
+        //comState = STARTED;
+    }
+    ImGui::SetCursorPos(ImVec2(250, 150));
+    if(ImGui::Button("RUN", ImVec2(70, 40))) {
+        //comState = RUNNING;
+    }
+    ImGui::SetCursorPos(ImVec2(350, 150));
+    if(ImGui::Button("STOP", ImVec2(70, 40))) {
+        //comState = STOPPED;
+    }
 
-    ImGui::SetCursorPos(ImVec2(69, 130));
-    ImGui::InputInt("SET2", &TargetBlockSet2);
-
-    ImGui::SetCursorPos(ImVec2(280, 130));
-    ImGui::Text("RUN2:");
-
-    ImGui::SetCursorPos(ImVec2(320, 130));
-    ImGui::InputInt("RUN2", &TargetBlockRun2);
     ImGui::PopItemWidth();
 
     ImGui::EndChild();
@@ -71,24 +91,14 @@ void CheckBoxContainer::RenderTimeBlock()
     ImGui::SetCursorPos(ImVec2(550, 80));
 	ImGui::BeginChild(17, ImVec2(500, 200), true);
 
-    ImGui::SetCursorPos(ImVec2(59.5, 13.5));
-    ImGui::Text("Forward Time");
+    ImGui::SetCursorPos(ImVec2(60, 13)); ImGui::Text("Forward Time");
+    ImGui::SetCursorPos(ImVec2(343, 18)); ImGui::Text("Reverse Time");
 
-    ImGui::SetCursorPos(ImVec2(343.5, 18.5));
-    ImGui::Text("Reverse Time");
-
-    ImGui::SetCursorPos(ImVec2(64, 50));
     ImGui::PushItemWidth(80);
-    ImGui::InputInt("SET1", &TimeBlockSet1);
-
-    ImGui::SetCursorPos(ImVec2(301, 50));
-    ImGui::InputInt("SET2", &TimeBlockSet2);
-
-    ImGui::SetCursorPos(ImVec2(66, 100));
-    ImGui::InputInt("RUN1", &TimeBlockRun1);
-
-    ImGui::SetCursorPos(ImVec2(305, 100));
-    ImGui::InputInt("RUN2", &TimeBlockRun2);
+    ImGui::SetCursorPos(ImVec2(64, 50)); ImGui::InputInt("SET1", &TimeBlockSet1);;
+    ImGui::SetCursorPos(ImVec2(301, 50)); ImGui::InputInt("SET2", &TimeBlockSet2);;
+    ImGui::SetCursorPos(ImVec2(66, 100)); ImGui::InputInt("RUN1", &TimeBlockRun1);;
+    ImGui::SetCursorPos(ImVec2(305, 100)); ImGui::InputInt("RUN2", &TimeBlockRun2);;
     ImGui::PopItemWidth();
 
     ImGui::EndChild();

@@ -10,6 +10,7 @@ class CheckBoxContainer
 public:
     CheckBoxContainer(int row, int col);
     void Render();
+    void RenderSelectedBlocks();
     void RenderTargetBlock();
     void RenderTimeBlock();
     std::vector<std::unique_ptr<CheckboxImage>> boxes;

@@ -35,7 +35,7 @@ Image::Image(const char *image_path)
         }
         else
         {
-            printf("Success: loaded image (%dx%d) with %d channels", image_width, image_height, channel);
+            printf("Success: loaded image (%dx%d) with %d channels from %s\n", image_width, image_height, channel, image_path);
         }
         glGenTextures(1, &image_texture_id);
         glBindTexture(GL_TEXTURE_2D, image_texture_id);
